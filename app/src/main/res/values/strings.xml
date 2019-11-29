@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FilmCameraPhotoBook</string>
+    <string name="action_preferences">Preferences</string>
+    <string name="title">Title</string>
+    <string name="camera_preference_title">Select your favorite camera</string>
+    <string name="photography_preferences_category_title">Photography</string>
+    <string name="photography_preferences_category_summary">The your default selected setup</string>
+    <string name="lenses_preference_title">Select favorite lenses</string>
+    <string name="film_preference_title">Select the film that you are shooting on</string>
+    <string name="preferences">Preferences</string>
+    <string name="gallery">Gallery</string>
+</resources>
