@@ -10,11 +10,6 @@
             app:title="@string/camera_preference_title"
             app:icon="@drawable/ic_camera_black_24dp"/>
         <DropDownPreference
-            app:key="favorite_lenses_preference"
-            app:title="@string/lenses_preference_title"
-            app:icon="@drawable/ic_lenses_black_24dp"
-            app:isPreferenceVisible="false"/>
-        <DropDownPreference
             app:key="film_preference"
             app:title="@string/film_preference_title"
             app:icon="@drawable/ic_film_black_24dp"/>

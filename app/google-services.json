@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "702780366836",
+    "firebase_url": "https://filmcameraphotobook.firebaseio.com",
+    "project_id": "filmcameraphotobook",
+    "storage_bucket": "filmcameraphotobook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702780366836:android:6a8c44dae4bd08d4b8a3a1",
+        "android_client_info": {
+          "package_name": "com.example.filmcameraphotobook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702780366836-l4bp7omcmvblh97us5cetm5q3g0jh47c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.filmcameraphotobook",
+            "certificate_hash": "c653773700ed2f639bcb99c00a0ae7ac23462dd0"
+          }
+        },
+        {
+          "client_id": "702780366836-j6ucrgb2dm23tk40fk830jr15ak8jljt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjX2Ka_o35O5-Ngwd3aNBo3a9uQ7RLJyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702780366836-j6ucrgb2dm23tk40fk830jr15ak8jljt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

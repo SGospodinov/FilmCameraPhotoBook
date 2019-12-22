@@ -1,59 +1,82 @@
 package com.example.filmcameraphotobook.camera;
 
-import java.util.HashSet;
+import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.Exclude;
+
+import java.util.ArrayList;
 
 public class Camera {
-    private final String id;
-    private final String name;
-    private HashSet<String> availableShutterSpeeds;
-    private HashSet<String> availableApertures;
-    private final float minFocusDistance; // in meters
-    private final float maxFocusDistance; // in meters
+    private String id;
+    private String name;
+    private ArrayList<String> availableShutterSpeeds;
+    private ArrayList<Float> availableApertures;
+    private Double minFocusDistance; // in meters
+    private Double maxFocusDistance; // in meters
+
+    public Camera() {}
 
     public Camera(
             String id,
             String name,
-            String availableApretures,
-            String availableShutterSpeeds,
-            float minFocusDistance,
-            float maxFocusDistance) {
+            ArrayList<Float> availableApertures,
+            ArrayList<String> availableShutterSpeeds,
+            Double minFocusDistance,
+            Double maxFocusDistance) {
         this.id = id;
         this.name = name;
         this.minFocusDistance = minFocusDistance;
         this.maxFocusDistance = maxFocusDistance;
-        this.availableApertures = parseCommaSeparatedString(availableApretures);
-        this.availableShutterSpeeds = parseCommaSeparatedString(availableShutterSpeeds);
+        this.availableApertures = availableApertures;
+        this.availableShutterSpeeds = availableShutterSpeeds;
     }
 
-    public String getID() {
+    @DocumentId
+    public String getId() {
         return id;
+    }
+
+    @Exclude
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public HashSet<String> getAvailableShutterSpeeds() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<String> getAvailableShutterSpeeds() {
         return availableShutterSpeeds;
     }
 
-    public HashSet<String> getAvailableApertures() {
+    public void setAvailableShutterSpeeds(ArrayList<String> availableShutterSpeeds) {
+        this.availableShutterSpeeds = availableShutterSpeeds;
+    }
+
+    public ArrayList<Float> getAvailableApertures() {
         return availableApertures;
     }
 
-    public float getMinFocusDistance() {
+    public void setAvailableApertures(ArrayList<Float> availableApertures) {
+        this.availableApertures = availableApertures;
+    }
+
+    public Double getMinFocusDistance() {
         return minFocusDistance;
     }
 
-    public float getMaxFocusDistance() {
+    public void setMinFocusDistance(Double minFocusDistance) {
+        this.minFocusDistance = minFocusDistance;
+    }
+
+    public Double getMaxFocusDistance() {
         return maxFocusDistance;
     }
 
-    private HashSet<String> parseCommaSeparatedString(String commaSeparatedString) {
-        HashSet<String> result = new HashSet<String>();
-        for (String value : commaSeparatedString.split(",")) {
-            result.add(value);
-        }
-        return result;
+    public void setMaxFocusDistance(Double maxFocusDistance) {
+        this.maxFocusDistance = maxFocusDistance;
     }
 }

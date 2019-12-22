@@ -1,25 +1,45 @@
 package com.example.filmcameraphotobook.film;
 
-public class Film {
-    private final String id;
-    private final String name;
-    private final int iso;
+import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.Exclude;
 
-    public Film(String id, String name, int iso) {
+public class Film {
+    private String id;
+    private String name;
+    private long iso;
+
+    public Film() { }
+
+    public Film(String id, String name, long iso) {
         this.id = id;
         this.name = name;
         this.iso = iso;
     }
 
+    @Exclude
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @DocumentId
     public String getID() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getIso() {
+
+    public void setIso(long iso) {
+        this.iso = iso;
+    }
+
+    public long getIso() {
         return iso;
     }
 

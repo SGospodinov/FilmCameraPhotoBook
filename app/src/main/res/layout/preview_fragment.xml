@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.main.GalleryFragment">
+
+        <ImageView
+            android:id="@+id/preview_photo_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/camera_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/camera"
+            android:src="@drawable/ic_photo_camera_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preview_photo_image_view" />
+
+        <TextView
+            android:id="@+id/preview_camera_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/camera_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/camera_icon"
+            app:layout_constraintTop_toBottomOf="@+id/preview_photo_image_view" />
+
+        <ImageView
+            android:id="@+id/film_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/film"
+            android:src="@drawable/ic_film_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/camera_icon" />
+
+        <TextView
+            android:id="@+id/preview_film_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/film_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/film_icon"
+            app:layout_constraintTop_toBottomOf="@+id/preview_camera_name_text_view" />
+
+        <ImageView
+            android:id="@+id/aperture_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/aperture"
+            android:src="@drawable/ic_aperture_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/film_icon" />
+
+        <TextView
+            android:id="@+id/preview_aperture_text_view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/aperture_icon"
+            app:layout_constraintTop_toBottomOf="@+id/preview_film_name_text_view" />
+
+        <ImageView
+            android:id="@+id/shutter_speed_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/shutter_speed"
+            android:src="@drawable/ic_shutter_speed_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aperture_icon" />
+
+        <TextView
+            android:id="@+id/preview_shutter_speed_text_view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shutter_speed_icon"
+            app:layout_constraintTop_toBottomOf="@+id/preview_aperture_text_view" />
+
+        <ImageView
+            android:id="@+id/focus_distance_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/focus_distance"
+            android:src="@drawable/ic_focus_distance_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shutter_speed_icon" />
+
+        <TextView
+            android:id="@+id/preview_focus_distance_text_view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/focus_distance_icon"
+            app:layout_constraintTop_toBottomOf="@+id/preview_shutter_speed_text_view" />
+
+        <ImageView
+            android:id="@+id/notes_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/notes"
+            android:src="@drawable/ic_notes_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/focus_distance_icon" />
+
+        <TextView
+            android:id="@+id/preview_notes_text_view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/notes_icon"
+            app:layout_constraintTop_toBottomOf="@+id/preview_focus_distance_text_view" />
+
+        <ImageView
+            android:id="@+id/timestamp_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/date"
+            android:src="@drawable/ic_calendar_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/notes_icon" />
+
+        <TextView
+            android:id="@+id/preview_date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timestamp_icon"
+            app:layout_constraintTop_toBottomOf="@+id/preview_notes_text_view" />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="119dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#FF1744"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/delete"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preview_date_text_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

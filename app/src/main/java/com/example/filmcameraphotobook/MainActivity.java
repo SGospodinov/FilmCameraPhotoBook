@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         navigationController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(toolbar, navigationController);
+        NavigationUI.setupActionBarWithNavController(this, navigationController);
         navigationController.addOnDestinationChangedListener(destinationChangeListener);
     }
 
