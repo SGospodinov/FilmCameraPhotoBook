@@ -14,10 +14,23 @@
         <action
             android:id="@+id/openPreferences"
             app:destination="@id/userPreferencesFragment" />
+        <action
+            android:id="@+id/preview_photo"
+            app:destination="@id/previewFragment">
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/userPreferencesFragment"
         android:name="com.example.filmcameraphotobook.ui.main.UserPreferencesFragment"
         android:label="@string/preferences" />
+
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="com.example.filmcameraphotobook.ui.main.PreviewFragment"
+        android:label="PreviewFragment" >
+        <argument
+            android:name="photo"
+            app:argType="com.example.filmcameraphotobook.photo.Photo" />
+    </fragment>
 </navigation>

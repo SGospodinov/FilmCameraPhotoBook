@@ -9,4 +9,15 @@
     <string name="film_preference_title">Select the film that you are shooting on</string>
     <string name="preferences">Preferences</string>
     <string name="gallery">Gallery</string>
+    <string name="delete">Delete</string>
+    <string name="cant_load_photos">Can not retrieve your photos.\nAre you sure you are online?</string>
+    <string name="no_photos_yet">You do not have any photos yet.</string>
+    <string name="film">Film</string>
+    <string name="camera">Camera</string>
+    <string name="aperture">Aperture</string>
+    <string name="shutter_speed">Shutter speed</string>
+    <string name="focus_distance">Focus distance</string>
+    <string name="notes">notes</string>
+    <string name="date">Date</string>
+    <string name="no_note">There is no note for this photo.</string>
 </resources>
