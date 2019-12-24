@@ -2,11 +2,14 @@ package com.example.filmcameraphotobook.ui.main;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.text.format.DateFormat;
@@ -16,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.filmcameraphotobook.R;
@@ -34,6 +36,8 @@ public class PreviewFragment extends Fragment {
     private TextView dateTextView;
     private TextView noteTextView;
     private Button deleteButton;
+
+    private AlertDialog deletePhotoDialog;
 
     public static PreviewFragment newInstance() {
         return new PreviewFragment();
@@ -54,12 +58,19 @@ public class PreviewFragment extends Fragment {
         noteTextView = view.findViewById(R.id.preview_notes_text_view);
         deleteButton = view.findViewById(R.id.delete_button);
 
+        deletePhotoDialog = createDeleteDialog();
+        deleteButton.setOnClickListener(v -> deletePhotoDialog.show());
+
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private AlertDialog createDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(true)
+                .setTitle(R.string.delete_photo)
+                .setPositiveButton(R.string.delete, (dialog, which) -> viewModel.deletePhoto())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
+        return builder.create();
     }
 
     @Override
@@ -67,6 +78,8 @@ public class PreviewFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(PreviewViewModel.class);
         viewModel.setPhoto(PreviewFragmentArgs.fromBundle(getArguments()).getPhoto());
+
+        viewModel.setPhotoDeletedListener(photoDeletedListener);
 
         PhotoDecorator photoDecorator = new PhotoDecorator(viewModel.getPhoto(), getResources());
 
@@ -84,8 +97,17 @@ public class PreviewFragment extends Fragment {
         loadingSpinner.start();
 
         Glide.with(getContext())
-                .load(viewModel.getPhotoRef())
+                .load(viewModel.getPhotoImageRef())
                 .placeholder(loadingSpinner)
                 .into(photoView);
     }
+
+    private final PreviewViewModel.OnPhotoDeletedListener photoDeletedListener =
+            photo -> {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                PreviewFragmentDirections.PhotoDeleted action = PreviewFragmentDirections.photoDeleted();
+                action.setDeletedPhoto(photo);
+
+                navController.navigate(action);
+            };
 }

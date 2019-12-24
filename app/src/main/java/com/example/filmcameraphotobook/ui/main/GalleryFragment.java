@@ -1,5 +1,6 @@
 package com.example.filmcameraphotobook.ui.main;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.SharedPreferences;
@@ -29,7 +30,9 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SnapshotMetadata;
 
 public class GalleryFragment extends Fragment {
     private static final int COLUMNS_COUNT = 2;
@@ -38,10 +41,10 @@ public class GalleryFragment extends Fragment {
     private GalleryViewModel viewModel;
     private FirestorePagingAdapter<Photo, PhotoViewHolder> galleryAdapter;
 
-
     private RecyclerView galleryRecyclerView;
     private TextView errorTextView;
     private ProgressBar loadingSpinner;
+    private CoordinatorLayout layoutParent;
 
     public static GalleryFragment newInstance() {
         return new GalleryFragment();
@@ -56,6 +59,7 @@ public class GalleryFragment extends Fragment {
         galleryRecyclerView = view.findViewById(R.id.gallery_recycler_view);
         errorTextView = view.findViewById(R.id.errors_text_view);
         loadingSpinner = view.findViewById(R.id.loading_photos_spinner);
+        layoutParent = view.findViewById(R.id.gallery_coordinator);
 
         galleryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMNS_COUNT));
 
@@ -72,10 +76,17 @@ public class GalleryFragment extends Fragment {
         galleryAdapter = createGalleryAdapter(pagingOptions);
         galleryRecyclerView.setAdapter(galleryAdapter);
 
+        Photo photo = GalleryFragmentArgs.fromBundle(getArguments()).getDeletedPhoto();
+        if(photo != null) displayPhotoDeletedMessage(photo);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String camera = sharedPreferences.getString("favorite_camera_preference", null);
         String film = sharedPreferences.getString("film_preference", null);
         Toast.makeText(getActivity(), String.format("Camera: %s\nFilm: %s", camera, film), Toast.LENGTH_LONG).show();
+    }
+
+    private void displayPhotoDeletedMessage(Photo photo) {
+        Snackbar.make(layoutParent, R.string.photo_deleted, Snackbar.LENGTH_LONG).show();
     }
 
     private FirestorePagingAdapter<Photo, PhotoViewHolder> createGalleryAdapter(FirestorePagingOptions<Photo> pagingOptions) {

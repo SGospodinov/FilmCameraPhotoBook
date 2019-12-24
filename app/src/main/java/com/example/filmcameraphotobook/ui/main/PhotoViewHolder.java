@@ -37,7 +37,7 @@ class PhotoViewHolder extends RecyclerView.ViewHolder {
 
     public void bindPhoto(Photo photo, String userId) {
         StorageReference thumbnailRef = cloudStorage.getReference()
-                .child(userId + "/" + photo.getPictureRef());
+                .child(userId + "/" + photo.getPictureRef() + "_300x300.jpg");
 
         GalleryFragmentDirections.PreviewPhoto action = GalleryFragmentDirections.previewPhoto(photo);
         itemView.setOnClickListener(view -> navController.navigate(action));
