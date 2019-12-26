@@ -10,8 +10,8 @@ import java.util.Date;
 public class Photo implements Serializable {
     private String id;
 
-    private String cameraId;
-    private String filmId;
+    private String cameraName;
+    private String filmName;
 
     private float aperture;
     private String shutterSpeed;
@@ -31,20 +31,20 @@ public class Photo implements Serializable {
         this.id = id;
     }
 
-    public String getCameraId() {
-        return cameraId;
+    public String getCameraName() {
+        return cameraName;
     }
 
-    public void setCameraId(String cameraId) {
-        this.cameraId = cameraId;
+    public void setCameraName(String cameraName) {
+        this.cameraName = cameraName;
     }
 
-    public String getFilmId() {
-        return filmId;
+    public String getFilmName() {
+        return filmName;
     }
 
-    public void setFilmId(String filmId) {
-        this.filmId = filmId;
+    public void setFilmName(String filmName) {
+        this.filmName = filmName;
     }
 
     public float getAperture() {

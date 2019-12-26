@@ -83,8 +83,8 @@ public class PreviewFragment extends Fragment {
 
         PhotoDecorator photoDecorator = new PhotoDecorator(viewModel.getPhoto(), getResources());
 
-        cameraNameTextView.setText(viewModel.getPhoto().getCameraId());
-        filmNameTextView.setText(viewModel.getPhoto().getFilmId());
+        cameraNameTextView.setText(viewModel.getPhoto().getCameraName());
+        filmNameTextView.setText(viewModel.getPhoto().getFilmName());
 
         apertureTextView.setText(photoDecorator.getFormattedAperture());
         shutterSpeedTextView.setText(photoDecorator.getFormattedShutterSpeed());
