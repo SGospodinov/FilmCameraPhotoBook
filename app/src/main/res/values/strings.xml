@@ -17,10 +17,11 @@
     <string name="aperture">Aperture</string>
     <string name="shutter_speed">Shutter speed</string>
     <string name="focus_distance">Focus distance</string>
-    <string name="notes">notes</string>
+    <string name="notes">Notes</string>
     <string name="date">Date</string>
     <string name="no_note">There is no note for this photo.</string>
     <string name="photo_deleted">Photo was deleted</string>
     <string name="delete_photo">Delete the photo?</string>
     <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>

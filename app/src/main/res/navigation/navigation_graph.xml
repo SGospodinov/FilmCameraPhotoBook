@@ -22,6 +22,9 @@
         <action
             android:id="@+id/preview_photo"
             app:destination="@id/previewFragment" />
+        <action
+            android:id="@+id/create_new_photo"
+            app:destination="@id/newPhotoFragment" />
     </fragment>
 
     <fragment
@@ -40,4 +43,10 @@
             android:id="@+id/photo_deleted"
             app:destination="@id/galleryFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/newPhotoFragment"
+        android:name="com.example.filmcameraphotobook.ui.main.NewPhotoFragment"
+        android:label="Create photo"
+        tools:layout="@layout/new_photo_fragment" />
 </navigation>

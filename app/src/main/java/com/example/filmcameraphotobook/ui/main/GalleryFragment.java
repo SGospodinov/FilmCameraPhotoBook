@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.paging.PagedList;
 import androidx.preference.PreferenceManager;
@@ -30,6 +31,7 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SnapshotMetadata;
@@ -45,6 +47,9 @@ public class GalleryFragment extends Fragment {
     private TextView errorTextView;
     private ProgressBar loadingSpinner;
     private CoordinatorLayout layoutParent;
+    private FloatingActionButton newPhotoButton;
+
+    private NavController navigationController;
 
     public static GalleryFragment newInstance() {
         return new GalleryFragment();
@@ -55,12 +60,16 @@ public class GalleryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.gallery_fragment, container, false);
+        navigationController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         galleryRecyclerView = view.findViewById(R.id.gallery_recycler_view);
         errorTextView = view.findViewById(R.id.errors_text_view);
         loadingSpinner = view.findViewById(R.id.loading_photos_spinner);
         layoutParent = view.findViewById(R.id.gallery_coordinator);
+        newPhotoButton = view.findViewById(R.id.new_photo_button);
 
+        newPhotoButton.setOnClickListener((button) ->
+                navigationController.navigate(GalleryFragmentDirections.createNewPhoto()));
         galleryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMNS_COUNT));
 
         return view;
@@ -78,11 +87,6 @@ public class GalleryFragment extends Fragment {
 
         Photo photo = GalleryFragmentArgs.fromBundle(getArguments()).getDeletedPhoto();
         if(photo != null) displayPhotoDeletedMessage(photo);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String camera = sharedPreferences.getString("favorite_camera_preference", null);
-        String film = sharedPreferences.getString("film_preference", null);
-        Toast.makeText(getActivity(), String.format("Camera: %s\nFilm: %s", camera, film), Toast.LENGTH_LONG).show();
     }
 
     private void displayPhotoDeletedMessage(Photo photo) {
@@ -102,8 +106,7 @@ public class GalleryFragment extends Fragment {
                 View view = LayoutInflater.from(getContext())
                         .inflate(R.layout.photo_tile, parent, false);
 
-                return new PhotoViewHolder(view, getContext(),
-                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment));
+                return new PhotoViewHolder(view, getContext(), navigationController);
             }
 
             @Override
