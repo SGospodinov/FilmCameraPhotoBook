@@ -39,8 +39,7 @@ public class PreviewViewModel extends ViewModel {
 
     public void deletePhoto() {
         getPhotoRef().delete().addOnCompleteListener(deletePhotoTask -> {
-            if (deletePhotoTask.isSuccessful()) getPhotoImageRef().delete()
-                    .addOnCompleteListener(deleteImageTask -> photoDeletedListener.onDeleted(photo));
+            if (deletePhotoTask.isSuccessful()) photoDeletedListener.onDeleted(photo);
         });
     }
 
