@@ -15,7 +15,7 @@ public class GalleryViewModel extends ViewModel {
 
 
     public Query getPhotosDesc () {
-        return photos;
+        return photos.orderBy("timestamp", Query.Direction.DESCENDING);
     }
 
     public String getUserId() {

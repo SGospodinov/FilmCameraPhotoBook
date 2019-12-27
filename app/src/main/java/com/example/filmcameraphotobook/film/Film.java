@@ -22,7 +22,7 @@ public class Film {
     }
 
     @DocumentId
-    public String getID() {
+    public String getId() {
         return id;
     }
 

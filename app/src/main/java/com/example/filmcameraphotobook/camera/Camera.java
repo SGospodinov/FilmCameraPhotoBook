@@ -79,4 +79,9 @@ public class Camera {
     public void setMaxFocusDistance(Double maxFocusDistance) {
         this.maxFocusDistance = maxFocusDistance;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
