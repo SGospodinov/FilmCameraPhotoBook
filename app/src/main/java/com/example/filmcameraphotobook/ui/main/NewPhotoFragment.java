@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,17 +19,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.bumptech.glide.Glide;
 import com.example.filmcameraphotobook.R;
 import com.example.filmcameraphotobook.camera.Camera;
 import com.example.filmcameraphotobook.film.Film;
+import com.example.filmcameraphotobook.photo.Photo;
 
+import java.io.File;
 import java.util.List;
 
 public class NewPhotoFragment extends Fragment {
     private NewPhotoViewModel viewModel;
 
+    private ImageView imagePreview;
     private Spinner cameraSpinner;
     private Spinner filmSpinner;
     private Spinner apertureSpinner;
@@ -46,6 +52,7 @@ public class NewPhotoFragment extends Fragment {
         navigationController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         View view = inflater.inflate(R.layout.new_photo_fragment, container, false);
 
+        imagePreview = view.findViewById(R.id.new_photo_image_view);
         cameraSpinner = view.findViewById(R.id.new_photo_camera_spinner);
         filmSpinner = view.findViewById(R.id.new_photo_film_spinner);
         apertureSpinner = view.findViewById(R.id.new_photo_aperture_spinner);
@@ -83,6 +90,7 @@ public class NewPhotoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(NewPhotoViewModel.class);
         viewModel.setPreferences(PreferenceManager.getDefaultSharedPreferences(getActivity()));
+        viewModel.setImageAbsolutePath(NewPhotoFragmentArgs.fromBundle(getArguments()).getImageAbsolutePath());
 
         viewModel.getCameras().addOnCompleteListener(getActivity(), task -> {
             if(task.isSuccessful()) {
@@ -99,6 +107,11 @@ public class NewPhotoFragment extends Fragment {
                 selectPreferredFilm(films, viewModel.getFilmPreference());
             }
         });
+
+        Glide.with(getContext())
+            .load(viewModel.getImageFile())
+            .placeholder(new CircularProgressDrawable(getContext()))
+            .into(imagePreview);
     }
 
     private void populateSpinner(Spinner spinner, List collection) {

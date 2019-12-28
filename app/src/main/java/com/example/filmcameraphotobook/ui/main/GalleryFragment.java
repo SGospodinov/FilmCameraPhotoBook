@@ -1,9 +1,12 @@
 package com.example.filmcameraphotobook.ui.main;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,8 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,10 +41,20 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SnapshotMetadata;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
 public class GalleryFragment extends Fragment {
     private static final int COLUMNS_COUNT = 2;
     private static final int PAGE_SIZE = 8;
     private static final int PREFETCH_DISTANCE = 10;
+    private static final int TAKE_PHOTO_REQUEST_CODE = 123;
+
     private GalleryViewModel viewModel;
     private FirestorePagingAdapter<Photo, PhotoViewHolder> galleryAdapter;
 
@@ -50,6 +65,8 @@ public class GalleryFragment extends Fragment {
     private FloatingActionButton newPhotoButton;
 
     private NavController navigationController;
+
+    private  GalleryFragmentDirections.CreateNewPhoto newPhotoAction = null;
 
     public static GalleryFragment newInstance() {
         return new GalleryFragment();
@@ -68,11 +85,37 @@ public class GalleryFragment extends Fragment {
         layoutParent = view.findViewById(R.id.gallery_coordinator);
         newPhotoButton = view.findViewById(R.id.new_photo_button);
 
-        newPhotoButton.setOnClickListener((button) ->
-                navigationController.navigate(GalleryFragmentDirections.createNewPhoto()));
+        newPhotoButton.setOnClickListener(button -> dispatchTakePhotoIntent());
         galleryRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMNS_COUNT));
 
         return view;
+    }
+
+    private void dispatchTakePhotoIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            File imageFile = createTempImageFile();
+            Uri photoURI = FileProvider.getUriForFile(getContext(), getContext().getPackageName() + ".fileprovider", imageFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            newPhotoAction = GalleryFragmentDirections.createNewPhoto(imageFile.getAbsolutePath());
+            startActivityForResult(takePictureIntent, TAKE_PHOTO_REQUEST_CODE);
+        } catch (IOException e) {
+            Snackbar.make(layoutParent, "Can't create tmp file", Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    private File createTempImageFile () throws IOException {
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        File picturesDirectory =  getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(timestamp, ".jpg", picturesDirectory);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_CANCELED) return;
+        if (requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK) navigationController.navigate(newPhotoAction);
+        else Snackbar.make(layoutParent, "Something went wrong", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
