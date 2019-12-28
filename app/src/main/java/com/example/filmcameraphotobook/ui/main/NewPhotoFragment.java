@@ -12,6 +12,9 @@ import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +72,8 @@ public class NewPhotoFragment extends Fragment {
 
                 populateSpinner(apertureSpinner, selectedCamera.getAvailableApertures());
                 populateSpinner(shutterSpeedSpinner, selectedCamera.getAvailableShutterSpeeds());
+
+                viewModel.setSelectedCamera(selectedCamera);
             }
 
             @Override
@@ -76,13 +81,94 @@ public class NewPhotoFragment extends Fragment {
             }
         });
 
-        saveButton.setOnClickListener(button -> savePhoto());
+        filmSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Film selectedFilm = (Film) parent.getItemAtPosition(position);
+                viewModel.setSelectedFilm(selectedFilm);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        apertureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Float selectedAperture = (Float) parent.getItemAtPosition(position);
+                viewModel.setSelectedAperture(selectedAperture);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        shutterSpeedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedShutterSpeed = (String) parent.getItemAtPosition(position);
+                viewModel.setSelectedShutterSpeed(selectedShutterSpeed);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        focusDistanceEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.setSelectedFocusDistance(Float.parseFloat(s.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        notesEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.setSelectedNote(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        saveButton.setOnClickListener(button -> {
+            cameraSpinner.setEnabled(false);
+            filmSpinner.setEnabled(false);
+            apertureSpinner.setEnabled(false);
+            shutterSpeedSpinner.setEnabled(false);
+            focusDistanceEditText.setEnabled(false);
+            notesEditText.setEnabled(false);
+            saveButton.setEnabled(false);
+            cancelButton.setEnabled(false);
+
+            viewModel.savePhoto();
+        });
         cancelButton.setOnClickListener(button -> navigationController.popBackStack());
 
         return view;
-    }
-
-    private void savePhoto() {
     }
 
     @Override
@@ -90,7 +176,8 @@ public class NewPhotoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(NewPhotoViewModel.class);
         viewModel.setPreferences(PreferenceManager.getDefaultSharedPreferences(getActivity()));
-        viewModel.setImageAbsolutePath(NewPhotoFragmentArgs.fromBundle(getArguments()).getImageAbsolutePath());
+        viewModel.setImageFile(NewPhotoFragmentArgs.fromBundle(getArguments()).getImageAbsolutePath());
+        viewModel.setOnPhotoDeletedListener(photo -> navigationController.popBackStack());
 
         viewModel.getCameras().addOnCompleteListener(getActivity(), task -> {
             if(task.isSuccessful()) {

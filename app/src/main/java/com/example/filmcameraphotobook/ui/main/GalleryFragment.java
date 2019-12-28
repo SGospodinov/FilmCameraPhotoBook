@@ -68,10 +68,6 @@ public class GalleryFragment extends Fragment {
 
     private  GalleryFragmentDirections.CreateNewPhoto newPhotoAction = null;
 
-    public static GalleryFragment newInstance() {
-        return new GalleryFragment();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -100,14 +96,14 @@ public class GalleryFragment extends Fragment {
             newPhotoAction = GalleryFragmentDirections.createNewPhoto(imageFile.getAbsolutePath());
             startActivityForResult(takePictureIntent, TAKE_PHOTO_REQUEST_CODE);
         } catch (IOException e) {
-            Snackbar.make(layoutParent, "Can't create tmp file", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(layoutParent, R.string.something_went_wrong, Snackbar.LENGTH_SHORT).show();
         }
     }
 
     private File createTempImageFile () throws IOException {
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         File picturesDirectory =  getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return File.createTempFile(timestamp, ".jpg", picturesDirectory);
+        return File.createTempFile(timestamp, "", picturesDirectory);
     }
 
     @Override
@@ -115,7 +111,7 @@ public class GalleryFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CANCELED) return;
         if (requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK) navigationController.navigate(newPhotoAction);
-        else Snackbar.make(layoutParent, "Something went wrong", Snackbar.LENGTH_SHORT).show();
+        else Snackbar.make(layoutParent, R.string.something_went_wrong, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
