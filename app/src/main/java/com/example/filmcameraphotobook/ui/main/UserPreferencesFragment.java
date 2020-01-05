@@ -43,7 +43,7 @@ public class UserPreferencesFragment extends PreferenceFragmentCompat {
             CharSequence[] filmDisplayValues = films.stream().map(Film::toString)
                     .toArray(CharSequence[]::new);
 
-            CharSequence[] filmIDs = films.stream().map(Film::getID)
+            CharSequence[] filmIDs = films.stream().map(Film::getId)
                     .toArray(CharSequence[]::new);
 
             filmPreference.setEntryValues(filmIDs);

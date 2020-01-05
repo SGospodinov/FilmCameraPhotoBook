@@ -21,6 +21,9 @@ public class Photo implements Serializable {
 
     private Date timestamp;
 
+    public Photo() {
+    }
+
     @DocumentId
     public String getId() {
         return id;

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/preview_photo"
             app:destination="@id/previewFragment" />
+        <action
+            android:id="@+id/create_new_photo"
+            app:destination="@id/newPhotoFragment" />
     </fragment>
 
     <fragment
@@ -39,5 +42,16 @@
         <action
             android:id="@+id/photo_deleted"
             app:destination="@id/galleryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newPhotoFragment"
+        android:name="com.example.filmcameraphotobook.ui.main.NewPhotoFragment"
+        android:label="Create photo"
+        tools:layout="@layout/new_photo_fragment">
+    <argument
+            android:name="imageAbsolutePath"
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
 </navigation>
