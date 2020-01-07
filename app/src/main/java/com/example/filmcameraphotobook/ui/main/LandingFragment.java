@@ -17,15 +17,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.filmcameraphotobook.R;
-import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class LandingFragment extends Fragment {
@@ -34,7 +31,7 @@ public class LandingFragment extends Fragment {
 
     private NavController navigationController;
     private View loadingPanel;
-    private View errorPaner;
+    private View errorPanel;
     private TextView errorMessageTextView;
     private TextView retryTextView;
 
@@ -44,7 +41,7 @@ public class LandingFragment extends Fragment {
         View view = inflater.inflate(R.layout.landing_fragment, container, false);
 
         loadingPanel = view.findViewById(R.id.loading_panel);
-        errorPaner = view.findViewById(R.id.error_panel);
+        errorPanel = view.findViewById(R.id.error_panel);
 
         errorMessageTextView = view.findViewById(R.id.landing_error_message);
         retryTextView = view.findViewById(R.id.retry_text_view);
@@ -88,7 +85,7 @@ public class LandingFragment extends Fragment {
 
     private void displayLoadingPanel() {
         loadingPanel.setVisibility(View.VISIBLE);
-        errorPaner.setVisibility(View.GONE);
+        errorPanel.setVisibility(View.GONE);
     }
 
     private void displayErrorMessage(IdpResponse response) {
@@ -96,7 +93,7 @@ public class LandingFragment extends Fragment {
         else if(response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) errorMessageTextView.setText(R.string.no_network);
 
         loadingPanel.setVisibility(View.GONE);
-        errorPaner.setVisibility(View.VISIBLE);
+        errorPanel.setVisibility(View.VISIBLE);
     }
 
     private void navigateToGalleryFragment() {
