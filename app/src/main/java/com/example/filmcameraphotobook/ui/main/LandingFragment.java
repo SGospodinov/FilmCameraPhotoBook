@@ -46,13 +46,13 @@ public class LandingFragment extends Fragment {
     }
 
     private void startSignInActivity() {
-        Intent signInActivitIntenet = AuthUI.getInstance().createSignInIntentBuilder()
+        Intent signInActivityIntent = AuthUI.getInstance().createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(
                         new AuthUI.IdpConfig.EmailBuilder().build(),
                         new AuthUI.IdpConfig.GoogleBuilder().build()
                 )).build();
 
-        startActivityForResult(signInActivitIntenet, SIGN_IN_REQUEST_CODE);
+        startActivityForResult(signInActivityIntent, SIGN_IN_REQUEST_CODE);
     }
 
     @Override
