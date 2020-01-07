@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.landingFragment:
                         toolbar.setVisibility(View.GONE);
                         break;
+                    case R.id.galleryFragment:
+                        toolbar.setNavigationIcon(null);
                     default:
                         toolbar.setVisibility(View.VISIBLE);
                 }

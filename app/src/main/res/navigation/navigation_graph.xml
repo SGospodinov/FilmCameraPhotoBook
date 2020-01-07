@@ -61,6 +61,8 @@
         tools:layout="@layout/landing_fragment" >
         <action
             android:id="@+id/login_success"
-            app:destination="@id/galleryFragment" />
+            app:destination="@id/galleryFragment"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
