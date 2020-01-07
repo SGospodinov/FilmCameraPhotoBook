@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     private NavController navigationController;
     private Toolbar toolbar;
@@ -38,8 +40,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.sign_out_menu_item) {
+            signOut();
+            return super.onOptionsItemSelected(item);
+        }
         return  NavigationUI.onNavDestinationSelected(item, navigationController)
             || super.onOptionsItemSelected(item);
+    }
+
+    private void signOut(){
+        FirebaseAuth.getInstance().signOut();
+        navigationController.popBackStack(R.id.navigation_graph, true);
+        navigationController.navigate(R.id.landingFragment);;
     }
 
     private final NavController.OnDestinationChangedListener destinationChangeListener =

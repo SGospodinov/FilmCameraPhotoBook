@@ -54,6 +54,7 @@
             app:argType="string"
             app:nullable="false" />
     </fragment>
+
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.example.filmcameraphotobook.ui.main.LandingFragment"
