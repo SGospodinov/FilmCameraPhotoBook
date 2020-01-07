@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(NavController controller, NavDestination destination, Bundle arguments) {
                 switch (destination.getId()) {
                     case R.id.userPreferencesFragment:
+                    case R.id.landingFragment:
                         toolbar.setVisibility(View.GONE);
                         break;
                     default:

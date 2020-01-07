@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     tools:ignore="UnusedNavigation"
-    app:startDestination="@id/galleryFragment">
+    app:startDestination="@id/landingFragment">
 
     <fragment
         android:id="@+id/galleryFragment"
@@ -53,5 +53,14 @@
             android:name="imageAbsolutePath"
             app:argType="string"
             app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.example.filmcameraphotobook.ui.main.LandingFragment"
+        android:label="Film camera app"
+        tools:layout="@layout/landing_fragment" >
+        <action
+            android:id="@+id/login_success"
+            app:destination="@id/galleryFragment" />
     </fragment>
 </navigation>
