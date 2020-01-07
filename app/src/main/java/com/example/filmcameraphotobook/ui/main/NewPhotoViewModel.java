@@ -13,6 +13,8 @@ import com.example.filmcameraphotobook.photo.Photo;
 import com.example.filmcameraphotobook.photo.PhotoBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,8 +26,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 
 public class NewPhotoViewModel extends ViewModel {
-    private static final String userId = "qguMQjYyh1k8w8p8zES0";
-
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private final FirebaseStorage cloudStorage = FirebaseStorage.getInstance();
     private final FirebaseFirestore databaseRef = FirebaseFirestore.getInstance();
 
@@ -94,18 +95,26 @@ public class NewPhotoViewModel extends ViewModel {
         photoBuilder.setFocusDistance(focusDistance);
     }
 
+    public String getCurrentUserUid() {
+        return firebaseAuth.getCurrentUser().getUid();
+    }
+
     public void savePhoto() {
         String imageName = imageFile.getName();
-        StorageReference imageReference = cloudStorage.getReference(userId + "/" + imageName + ".jpg");
-        CollectionReference photosCollection = databaseRef.collection("users/" + userId + "/photos");
+        StorageReference imageReference = cloudStorage
+                .getReference(getCurrentUserUid() + "/" + imageName + ".jpg");
+        CollectionReference photosCollection = databaseRef
+                .collection("users")
+                .document(getCurrentUserUid())
+                .collection("photos");
 
         Photo newPhoto = photoBuilder.setPictureRef(imageName).build();
 
         imageReference.putFile(Uri.fromFile(imageFile)).addOnCompleteListener(uploadTask -> {
             if (uploadTask.isSuccessful()) {
-                imageFile.delete();
                 photosCollection.add(newPhoto).addOnCompleteListener(savePhotoTask -> {
                     if (savePhotoTask.isSuccessful()) {
+                        imageFile.delete();
                         newPhoto.setId(savePhotoTask.getResult().getId());
                         onPhotoSavedListener.onPhotoSaved(newPhoto);
                     }

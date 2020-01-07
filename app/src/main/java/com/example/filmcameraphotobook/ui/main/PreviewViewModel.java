@@ -3,14 +3,14 @@ package com.example.filmcameraphotobook.ui.main;
 import androidx.lifecycle.ViewModel;
 
 import com.example.filmcameraphotobook.photo.Photo;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class PreviewViewModel extends ViewModel {
-    private static final String userId = "qguMQjYyh1k8w8p8zES0";
-
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private final FirebaseStorage cloudStorage = FirebaseStorage.getInstance();
     private final FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private Photo photo;
@@ -30,11 +30,20 @@ public class PreviewViewModel extends ViewModel {
     }
 
     public StorageReference getPhotoImageRef() {
-        return cloudStorage.getReference().child(userId + "/" + photo.getPictureRef() + ".jpg");
+        return cloudStorage.getReference()
+                .child( getCurrentUserUid() + "/" + photo.getPictureRef() + ".jpg");
     }
 
     public DocumentReference getPhotoRef() {
-        return firestore.document("users/" + userId + "/photos/" + photo.getId());
+        return firestore
+                .collection("users")
+                .document(getCurrentUserUid())
+                .collection("photos")
+                .document(photo.getId());
+    }
+
+    private String getCurrentUserUid(){
+        return firebaseAuth.getCurrentUser().getUid();
     }
 
     public void deletePhoto() {

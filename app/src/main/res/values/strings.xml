@@ -25,4 +25,9 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_out">Sign out</string>
+    <string name="no_network">There seems to be issue with you connectivity.</string>
+    <string name="unknown_error">Unknown error occurred.</string>
+    <string name="click_here_to_retry"><u>Click here to retry</u></string>
 </resources>

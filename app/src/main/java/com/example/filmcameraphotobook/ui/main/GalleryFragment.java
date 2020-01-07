@@ -136,7 +136,7 @@ public class GalleryFragment extends Fragment {
         return new FirestorePagingAdapter<Photo, PhotoViewHolder>(pagingOptions) {
             @Override
             protected void onBindViewHolder(@NonNull PhotoViewHolder viewHolder, int position, @NonNull Photo photo) {
-                viewHolder.bindPhoto(photo, viewModel.getUserId());
+                viewHolder.bindPhoto(photo, viewModel.getCurrentUser().getUid());
             }
 
             @NonNull
