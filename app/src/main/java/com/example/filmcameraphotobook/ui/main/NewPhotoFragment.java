@@ -128,7 +128,9 @@ public class NewPhotoFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setSelectedFocusDistance(Float.parseFloat(s.toString()));
+                if(!s.toString().isEmpty()) {
+                    viewModel.setSelectedFocusDistance(Float.parseFloat(s.toString()));
+                }
             }
 
             @Override

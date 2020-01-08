@@ -7,6 +7,21 @@
     app:startDestination="@id/landingFragment">
 
     <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.example.filmcameraphotobook.ui.main.LandingFragment"
+        android:label="Film camera app"
+        tools:layout="@layout/landing_fragment" >
+        <action
+            android:id="@+id/login_success"
+            app:destination="@id/galleryFragment"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/galleryFragment"
         android:name="com.example.filmcameraphotobook.ui.main.GalleryFragment"
         android:label="@string/gallery"
@@ -18,13 +33,25 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/openPreferences"
-            app:destination="@id/userPreferencesFragment" />
+            app:destination="@id/userPreferencesFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_top"/>
         <action
             android:id="@+id/preview_photo"
-            app:destination="@id/previewFragment" />
+            app:destination="@id/previewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/create_new_photo"
-            app:destination="@id/newPhotoFragment" />
+            app:destination="@id/newPhotoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -35,13 +62,10 @@
     <fragment
         android:id="@+id/previewFragment"
         android:name="com.example.filmcameraphotobook.ui.main.PreviewFragment"
-        android:label="PreviewFragment" >
+        android:label="@string/preview" >
         <argument
             android:name="photo"
             app:argType="com.example.filmcameraphotobook.photo.Photo" />
-        <action
-            android:id="@+id/photo_deleted"
-            app:destination="@id/galleryFragment" />
     </fragment>
 
     <fragment
@@ -53,17 +77,5 @@
             android:name="imageAbsolutePath"
             app:argType="string"
             app:nullable="false" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/landingFragment"
-        android:name="com.example.filmcameraphotobook.ui.main.LandingFragment"
-        android:label="Film camera app"
-        tools:layout="@layout/landing_fragment" >
-        <action
-            android:id="@+id/login_success"
-            app:destination="@id/galleryFragment"
-            app:popUpTo="@id/navigation_graph"
-            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

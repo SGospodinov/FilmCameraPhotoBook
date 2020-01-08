@@ -123,13 +123,6 @@ public class GalleryFragment extends Fragment {
         FirestorePagingOptions<Photo> pagingOptions = createPagingOptions(viewModel, pagingConfig);
         galleryAdapter = createGalleryAdapter(pagingOptions);
         galleryRecyclerView.setAdapter(galleryAdapter);
-
-        Photo photo = GalleryFragmentArgs.fromBundle(getArguments()).getDeletedPhoto();
-        if(photo != null) displayPhotoDeletedMessage(photo);
-    }
-
-    private void displayPhotoDeletedMessage(Photo photo) {
-        Snackbar.make(layoutParent, R.string.photo_deleted, Snackbar.LENGTH_LONG).show();
     }
 
     private FirestorePagingAdapter<Photo, PhotoViewHolder> createGalleryAdapter(FirestorePagingOptions<Photo> pagingOptions) {
