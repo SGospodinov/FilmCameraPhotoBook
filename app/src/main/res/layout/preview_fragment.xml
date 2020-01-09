@@ -286,6 +286,45 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <ImageView
+            android:id="@+id/location_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/location"
+            android:src="@drawable/ic_location_grey_64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/preview_location_field"
+            app:layout_constraintBottom_toBottomOf="@+id/preview_location_field"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/preview_location_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/preview_date_field"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timestamp_icon">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/preview_location_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/click_here_to_open_map"
+                android:textSize="16sp"
+                android:textColor="@color/clickableText" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <Button
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
@@ -300,6 +339,6 @@
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/preview_date_field" />
+            app:layout_constraintTop_toBottomOf="@+id/preview_location_field" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

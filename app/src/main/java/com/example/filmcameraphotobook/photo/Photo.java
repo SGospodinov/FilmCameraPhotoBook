@@ -2,6 +2,7 @@ package com.example.filmcameraphotobook.photo;
 
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class Photo implements Serializable {
     private String pictureRef;
 
     private Date timestamp;
+    private GeoPoint location;
 
     public Photo() {
     }
@@ -97,5 +99,13 @@ public class Photo implements Serializable {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoPoint location) {
+        this.location = location;
     }
 }

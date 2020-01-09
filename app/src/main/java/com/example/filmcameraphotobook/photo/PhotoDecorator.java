@@ -2,12 +2,16 @@ package com.example.filmcameraphotobook.photo;
 
 
 import android.content.res.Resources;
+import android.net.Uri;
 
 import com.example.filmcameraphotobook.R;
 
 import java.text.DateFormat;
+import java.util.Locale;
 
 public class PhotoDecorator {
+    private static final String ZOOM_LEVEL = "15";
+
     private final Resources resources;
     private final Photo photo;
 
@@ -40,5 +44,13 @@ public class PhotoDecorator {
 
     public String getFormattedDate(DateFormat dateFormat) {
         return dateFormat.format(photo.getTimestamp());
+    }
+
+    public Uri getLocationUri() {
+        return Uri.parse(
+                String.format(Locale.ENGLISH,"geo:%f,%f?z=%s",
+                photo.getLocation().getLatitude(),
+                photo.getLocation().getLongitude(),
+                ZOOM_LEVEL));
     }
 }

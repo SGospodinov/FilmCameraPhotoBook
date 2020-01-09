@@ -33,4 +33,6 @@
     <string name="preview">Preview</string>
     <string name="focus_distance_helper">Between %1$.2f m and %2$.2f m or leave empty for ∞.</string>
     <string name="not_required">This field is not required</string>
+    <string name="location">Location</string>
+    <string name="click_here_to_open_map"><u>See on the map</u></string>
 </resources>
