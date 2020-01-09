@@ -29,7 +29,7 @@ public class PhotoDecorator {
     }
 
     public String getFormattedFocusDistance() {
-        return String.format("%.2f meters", photo.getFocusDistance());
+        return String.format("%.2f m", photo.getFocusDistance());
     }
 
     public String getFormattedNote() {

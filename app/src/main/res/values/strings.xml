@@ -19,7 +19,7 @@
     <string name="focus_distance">Focus distance</string>
     <string name="notes">Notes</string>
     <string name="date">Date</string>
-    <string name="no_note">There is no note for this photo.</string>
+    <string name="no_note">There are no notes for this photo.</string>
     <string name="photo_deleted">Photo was deleted</string>
     <string name="delete_photo">Delete the photo?</string>
     <string name="cancel">Cancel</string>
@@ -31,4 +31,6 @@
     <string name="unknown_error">Unknown error occurred.</string>
     <string name="click_here_to_retry"><u>Click here to retry</u></string>
     <string name="preview">Preview</string>
+    <string name="focus_distance_helper">Between %1$.2f m and %2$.2f m or leave empty for ∞.</string>
+    <string name="not_required">This field is not required</string>
 </resources>
