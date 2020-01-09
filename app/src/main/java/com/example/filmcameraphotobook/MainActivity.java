@@ -40,18 +40,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.sign_out_menu_item) {
-            signOut();
-            return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.sign_out_menu_item:
+                signOut();
+               break;
+            case R.id.openPreferences:
+                navigationController.navigate(R.id.userPreferencesFragment);
+                break;
         }
-        return  NavigationUI.onNavDestinationSelected(item, navigationController)
-            || super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     private void signOut(){
         FirebaseAuth.getInstance().signOut();
         navigationController.popBackStack(R.id.navigation_graph, true);
-        navigationController.navigate(R.id.landingFragment);;
+        navigationController.navigate(R.id.landingFragment);
     }
 
     private final NavController.OnDestinationChangedListener destinationChangeListener =

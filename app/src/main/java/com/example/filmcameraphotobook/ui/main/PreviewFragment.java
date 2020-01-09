@@ -105,9 +105,6 @@ public class PreviewFragment extends Fragment {
     private final PreviewViewModel.OnPhotoDeletedListener photoDeletedListener =
             photo -> {
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                PreviewFragmentDirections.PhotoDeleted action = PreviewFragmentDirections.photoDeleted();
-                action.setDeletedPhoto(photo);
-
-                navController.navigate(action);
+                navController.popBackStack();
             };
 }

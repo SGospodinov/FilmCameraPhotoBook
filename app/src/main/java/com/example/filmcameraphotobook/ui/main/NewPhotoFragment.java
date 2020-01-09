@@ -14,14 +14,12 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -29,9 +27,8 @@ import com.bumptech.glide.Glide;
 import com.example.filmcameraphotobook.R;
 import com.example.filmcameraphotobook.camera.Camera;
 import com.example.filmcameraphotobook.film.Film;
-import com.example.filmcameraphotobook.photo.Photo;
+import com.google.android.material.textfield.TextInputLayout;
 
-import java.io.File;
 import java.util.List;
 
 public class NewPhotoFragment extends Fragment {
@@ -42,8 +39,8 @@ public class NewPhotoFragment extends Fragment {
     private Spinner filmSpinner;
     private Spinner apertureSpinner;
     private Spinner shutterSpeedSpinner;
-    private EditText focusDistanceEditText;
-    private EditText notesEditText;
+    private TextInputLayout focusDistanceEditText;
+    private TextInputLayout notesEditText;
     private Button saveButton;
     private Button cancelButton;
 
@@ -72,6 +69,12 @@ public class NewPhotoFragment extends Fragment {
 
                 populateSpinner(apertureSpinner, selectedCamera.getAvailableApertures());
                 populateSpinner(shutterSpeedSpinner, selectedCamera.getAvailableShutterSpeeds());
+
+                String focusDistanceHelperString = String.format(
+                        getResources().getString(R.string.focus_distance_helper),
+                        selectedCamera.getMinFocusDistance(),
+                        selectedCamera.getMaxFocusDistance());
+                focusDistanceEditText.setHelperText(focusDistanceHelperString);
 
                 viewModel.setSelectedCamera(selectedCamera);
             }
@@ -120,7 +123,7 @@ public class NewPhotoFragment extends Fragment {
             }
         });
 
-        focusDistanceEditText.addTextChangedListener(new TextWatcher() {
+        focusDistanceEditText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -128,7 +131,9 @@ public class NewPhotoFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setSelectedFocusDistance(Float.parseFloat(s.toString()));
+                if(!s.toString().isEmpty()) {
+                    viewModel.setSelectedFocusDistance(Float.parseFloat(s.toString().trim()));
+                }
             }
 
             @Override
@@ -137,7 +142,7 @@ public class NewPhotoFragment extends Fragment {
             }
         });
 
-        notesEditText.addTextChangedListener(new TextWatcher() {
+        notesEditText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -145,7 +150,7 @@ public class NewPhotoFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setSelectedNote(s.toString());
+                viewModel.setSelectedNote(s.toString().trim());
             }
 
             @Override

@@ -16,7 +16,7 @@ public class PhotoBuilder {
 
     public Photo build() {
         Photo photo = new Photo();
-        
+
         photo.setCameraName(camera.getName());
         photo.setFilmName(film.getName());
         photo.setAperture(aperture.floatValue());
