@@ -1,27 +1,23 @@
 package com.example.filmcameraphotobook.ui.main;
 
-import android.app.RemoteInput;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.net.Uri;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.filmcameraphotobook.camera.Camera;
 import com.example.filmcameraphotobook.film.Film;
 import com.example.filmcameraphotobook.photo.Photo;
 import com.example.filmcameraphotobook.photo.PhotoBuilder;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
@@ -30,13 +26,13 @@ public class NewPhotoViewModel extends ViewModel {
     private final FirebaseStorage cloudStorage = FirebaseStorage.getInstance();
     private final FirebaseFirestore databaseRef = FirebaseFirestore.getInstance();
 
-    private String cameraPreference = null;
-    private String filmPreference = null;
+    private SharedPreferences sharedPreferences;
     private File imageFile;
-
     private PhotoBuilder photoBuilder = new PhotoBuilder();
 
     private OnPhotoSavedListener onPhotoSavedListener;
+
+    private FusedLocationProviderClient locationProviderClient;
 
     public Task<QuerySnapshot> getCameras() {
         return databaseRef.collection("cameras").orderBy("name").get();
@@ -47,8 +43,11 @@ public class NewPhotoViewModel extends ViewModel {
     }
 
     public void setPreferences(SharedPreferences preferences) {
-        cameraPreference = preferences.getString("favorite_camera_preference", null);
-        filmPreference = preferences.getString("film_preference", null);
+        sharedPreferences = preferences;
+    }
+
+    public void setLocationClient(FusedLocationProviderClient locationProviderClient) {
+        this.locationProviderClient = locationProviderClient;
     }
 
     public void setImageFile(String imageAbsolutePath) {
@@ -60,11 +59,21 @@ public class NewPhotoViewModel extends ViewModel {
     }
 
     public String getCameraPreference() {
-        return cameraPreference;
+        return sharedPreferences.getString("favorite_camera_preference", null);
     }
 
     public String getFilmPreference() {
-        return filmPreference;
+        return sharedPreferences.getString("film_preference", null);
+    }
+
+    public boolean isLocationEnabled() {
+        return sharedPreferences.getBoolean("location_preference", true);
+    }
+
+    public void disableLocationPreference() {
+        SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+        preferencesEditor.putBoolean("location_preference", false);
+        preferencesEditor.commit();
     }
 
     public File getImageFile() {
@@ -93,6 +102,16 @@ public class NewPhotoViewModel extends ViewModel {
 
     public void setSelectedFocusDistance(float focusDistance) {
         photoBuilder.setFocusDistance(focusDistance);
+    }
+
+    public void setLocationAndSavePhoto() {
+        locationProviderClient.getLastLocation().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                Location location = task.getResult();
+                photoBuilder.setLocation(location.getLatitude(), location.getLongitude());
+            }
+            savePhoto();
+        });
     }
 
     public String getCurrentUserUid() {

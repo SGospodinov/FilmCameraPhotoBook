@@ -1,262 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/new_photo"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent"
+    android:id="@+id/new_photo_coordinator">
+    <ScrollView
+        android:id="@+id/new_photo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".ui.main.NewPhotoFragment">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/new_photo_image_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/camera_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/camera"
-            android:src="@drawable/ic_photo_camera_grey_64dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/new_photo_camera_field"
-            app:layout_constraintTop_toTopOf="@+id/new_photo_camera_field" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/new_photo_camera_field"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/camera_icon"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_image_view">
+            tools:context=".ui.main.NewPhotoFragment">
 
-            <TextView
+            <ImageView
+                android:id="@+id/new_photo_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/camera_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/camera"
+                android:src="@drawable/ic_photo_camera_grey_64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/new_photo_camera_field"
+                app:layout_constraintTop_toTopOf="@+id/new_photo_camera_field" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/new_photo_camera_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/camera_icon"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_image_view">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/camera"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp"/>
+
+                <Spinner
+                    android:id="@+id/new_photo_camera_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <ImageView
+                android:id="@+id/film_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/film"
+                android:src="@drawable/ic_film_grey_64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/new_photo_film_field"
+                app:layout_constraintTop_toTopOf="@+id/new_photo_film_field" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/new_photo_film_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/film_icon"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_camera_field">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/film"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp"/>
+
+                <Spinner
+                    android:id="@+id/new_photo_film_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ImageView
+                android:id="@+id/aperture_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/aperture"
+                android:src="@drawable/ic_aperture_grey_64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/new_photo_aperture_field"
+                app:layout_constraintTop_toTopOf="@+id/new_photo_aperture_field" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/new_photo_aperture_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/aperture_icon"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_film_field">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aperture"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp"/>
+
+                <Spinner
+                    android:id="@+id/new_photo_aperture_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ImageView
+                android:id="@+id/shutter_speed_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/shutter_speed"
+                android:src="@drawable/ic_shutter_speed_grey_64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/new_photo_shutter_speed_field"
+                app:layout_constraintTop_toTopOf="@+id/new_photo_shutter_speed_field" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/new_photo_shutter_speed_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/shutter_speed_icon"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_aperture_field">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shutter_speed"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp" />
+
+                <Spinner
+                    android:id="@+id/new_photo_shutter_speed_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ImageView
+                android:id="@+id/focus_distance_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/focus_distance"
+                android:src="@drawable/ic_focus_distance_grey_64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/new_photo_focus_distance_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/new_photo_focus_distance_edit_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/new_photo_focus_distance_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:gravity="start|top"
+                android:hint="@string/focus_distance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/focus_distance_icon"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_shutter_speed_field">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal"
+                    android:importantForAutofill="no" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/notes_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/notes"
+                android:src="@drawable/ic_notes_grey_64dp"
+                app:layout_constraintBottom_toBottomOf="@+id/new_photo_notes_edit_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/new_photo_notes_edit_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/new_photo_notes_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:gravity="start|top"
+                android:hint="@string/notes"
+                app:helperText="@string/not_required"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/notes_icon"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_focus_distance_edit_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/save_photo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/camera"
-                android:textSize="12sp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_notes_edit_text" />
 
-            <Spinner
-                android:id="@+id/new_photo_camera_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <ImageView
-            android:id="@+id/film_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/film"
-            android:src="@drawable/ic_film_grey_64dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/new_photo_film_field"
-            app:layout_constraintTop_toTopOf="@+id/new_photo_film_field" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/new_photo_film_field"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/film_icon"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_camera_field">
-
-            <TextView
+            <Button
+                android:id="@+id/cancel_new_photo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/film"
-                android:textSize="12sp"
-                android:layout_marginStart="8dp"/>
-
-            <Spinner
-                android:id="@+id/new_photo_film_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <ImageView
-            android:id="@+id/aperture_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/aperture"
-            android:src="@drawable/ic_aperture_grey_64dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/new_photo_aperture_field"
-            app:layout_constraintTop_toTopOf="@+id/new_photo_aperture_field" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/new_photo_aperture_field"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/aperture_icon"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_film_field">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/aperture"
-                android:textSize="12sp"
-                android:layout_marginStart="8dp"/>
-
-            <Spinner
-                android:id="@+id/new_photo_aperture_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <ImageView
-            android:id="@+id/shutter_speed_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/shutter_speed"
-            android:src="@drawable/ic_shutter_speed_grey_64dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/new_photo_shutter_speed_field"
-            app:layout_constraintTop_toTopOf="@+id/new_photo_shutter_speed_field" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/new_photo_shutter_speed_field"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/shutter_speed_icon"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_aperture_field">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shutter_speed"
-                android:textSize="12sp"
-                android:layout_marginStart="8dp" />
-
-            <Spinner
-                android:id="@+id/new_photo_shutter_speed_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <ImageView
-            android:id="@+id/focus_distance_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/focus_distance"
-            android:src="@drawable/ic_focus_distance_grey_64dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/new_photo_focus_distance_edit_text"
-            app:layout_constraintTop_toTopOf="@+id/new_photo_focus_distance_edit_text" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_photo_focus_distance_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:gravity="start|top"
-            android:hint="@string/focus_distance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/focus_distance_icon"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_shutter_speed_field">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="numberDecimal"
-                android:importantForAutofill="no" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/notes_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/notes"
-            android:src="@drawable/ic_notes_grey_64dp"
-            app:layout_constraintBottom_toBottomOf="@+id/new_photo_notes_edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/new_photo_notes_edit_text" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_photo_notes_edit_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:gravity="start|top"
-            android:hint="@string/notes"
-            app:helperText="@string/not_required"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/notes_icon"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_focus_distance_edit_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/save_photo_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_notes_edit_text" />
-
-        <Button
-            android:id="@+id/cancel_new_photo_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/cancel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/save_photo_button"
-            app:layout_constraintTop_toBottomOf="@+id/new_photo_notes_edit_text" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/save_photo_button"
+                app:layout_constraintTop_toBottomOf="@+id/new_photo_notes_edit_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
