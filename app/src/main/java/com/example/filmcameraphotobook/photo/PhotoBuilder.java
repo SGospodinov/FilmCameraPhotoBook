@@ -2,6 +2,7 @@ package com.example.filmcameraphotobook.photo;
 
 import com.example.filmcameraphotobook.camera.Camera;
 import com.example.filmcameraphotobook.film.Film;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Date;
 
@@ -13,6 +14,7 @@ public class PhotoBuilder {
     private String pictureRef;
     private float focusDistance;
     private String note;
+    private GeoPoint location = null;
 
     public Photo build() {
         Photo photo = new Photo();
@@ -25,6 +27,7 @@ public class PhotoBuilder {
         photo.setFocusDistance(focusDistance);
         photo.setNote(note);
         photo.setTimestamp(new Date());
+        photo.setLocation(location);
         
         return photo;
     }
@@ -61,6 +64,11 @@ public class PhotoBuilder {
 
     public PhotoBuilder setFocusDistance(float focusDistance) {
         this.focusDistance = focusDistance;
+        return this;
+    }
+
+    public PhotoBuilder setLocation(double latitude, double longitude) {
+        this.location = new GeoPoint(latitude, longitude);
         return this;
     }
 }

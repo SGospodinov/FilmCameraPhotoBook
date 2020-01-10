@@ -1,7 +1,13 @@
 package com.example.filmcameraphotobook.ui.main;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,18 +28,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.filmcameraphotobook.R;
 import com.example.filmcameraphotobook.camera.Camera;
 import com.example.filmcameraphotobook.film.Film;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
 public class NewPhotoFragment extends Fragment {
+    private static final int ACCESS_LOCATION_REQUEST_CODE = 126;
     private NewPhotoViewModel viewModel;
 
+    private View layoutParent;
     private ImageView imagePreview;
     private Spinner cameraSpinner;
     private Spinner filmSpinner;
@@ -51,6 +62,8 @@ public class NewPhotoFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         navigationController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         View view = inflater.inflate(R.layout.new_photo_fragment, container, false);
+
+        layoutParent = view.findViewById(R.id.new_photo_coordinator);
 
         imagePreview = view.findViewById(R.id.new_photo_image_view);
         cameraSpinner = view.findViewById(R.id.new_photo_camera_spinner);
@@ -169,11 +182,39 @@ public class NewPhotoFragment extends Fragment {
             saveButton.setEnabled(false);
             cancelButton.setEnabled(false);
 
-            viewModel.savePhoto();
+            if(!viewModel.isLocationEnabled()) viewModel.savePhoto();
+            else checkPermissionsAndSave();
         });
         cancelButton.setOnClickListener(button -> navigationController.popBackStack());
 
         return view;
+    }
+
+    private void checkPermissionsAndSave() {
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            viewModel.setLocationAndSavePhoto();
+        } else {
+            requestPermissions(new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION }, ACCESS_LOCATION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == ACCESS_LOCATION_REQUEST_CODE) {
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                viewModel.setLocationAndSavePhoto();
+            } else {
+                viewModel.disableLocationPreference();
+                displayLocationDisabledMessage();
+                viewModel.savePhoto();
+            }
+        }
+    }
+
+    private void displayLocationDisabledMessage() {
+        Snackbar.make(layoutParent, R.string.location_disabled, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -181,6 +222,7 @@ public class NewPhotoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(NewPhotoViewModel.class);
         viewModel.setPreferences(PreferenceManager.getDefaultSharedPreferences(getActivity()));
+        viewModel.setLocationClient(LocationServices.getFusedLocationProviderClient(getContext()));
         viewModel.setImageFile(NewPhotoFragmentArgs.fromBundle(getArguments()).getImageAbsolutePath());
         viewModel.setOnPhotoDeletedListener(photo -> navigationController.popBackStack());
 

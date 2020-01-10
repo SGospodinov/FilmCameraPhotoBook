@@ -3,6 +3,8 @@ package com.example.filmcameraphotobook.ui.main;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,11 @@ public class PreviewFragment extends Fragment {
     private TextView focusDistanceTextView;
     private TextView dateTextView;
     private TextView noteTextView;
+    private TextView locationTextView;
+
+    private View locationField;
+    private View locationIcon;
+
     private Button deleteButton;
 
     private AlertDialog deletePhotoDialog;
@@ -56,6 +63,11 @@ public class PreviewFragment extends Fragment {
         focusDistanceTextView = view.findViewById(R.id.preview_focus_distance_text_view);
         dateTextView = view.findViewById(R.id.preview_date_text_view);
         noteTextView = view.findViewById(R.id.preview_notes_text_view);
+        locationTextView = view.findViewById(R.id.preview_location_text_view);
+
+        locationField = view.findViewById(R.id.preview_location_field);
+        locationIcon = view.findViewById(R.id.location_icon);
+
         deleteButton = view.findViewById(R.id.delete_button);
 
         deletePhotoDialog = createDeleteDialog();
@@ -92,6 +104,13 @@ public class PreviewFragment extends Fragment {
         noteTextView.setText(photoDecorator.getFormattedNote());
         dateTextView.setText(photoDecorator.getFormattedDate(DateFormat.getLongDateFormat(getContext())));
 
+        if (viewModel.getPhoto().getLocation() == null){
+            hideLocationField();
+        } else {
+            locationTextView.setOnClickListener(view ->
+                    openMapApplication(photoDecorator.getLocationUri()));
+        }
+
         CircularProgressDrawable loadingSpinner = new CircularProgressDrawable(getContext());
         loadingSpinner.setStyle(CircularProgressDrawable.LARGE);
         loadingSpinner.start();
@@ -100,6 +119,18 @@ public class PreviewFragment extends Fragment {
                 .load(viewModel.getPhotoImageRef())
                 .placeholder(loadingSpinner)
                 .into(photoView);
+    }
+
+    private void hideLocationField() {
+        locationField.setVisibility(View.GONE);
+        locationIcon.setVisibility(View.GONE);
+    }
+
+    private void openMapApplication(Uri locationUri) {
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, locationUri);
+        if (mapIntent.resolveActivity(getContext().getPackageManager()) != null) {
+            getContext().startActivity(mapIntent);
+        }
     }
 
     private final PreviewViewModel.OnPhotoDeletedListener photoDeletedListener =
