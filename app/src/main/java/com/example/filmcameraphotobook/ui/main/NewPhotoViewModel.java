@@ -108,7 +108,8 @@ public class NewPhotoViewModel extends ViewModel {
         locationProviderClient.getLastLocation().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 Location location = task.getResult();
-                photoBuilder.setLocation(location.getLatitude(), location.getLongitude());
+                if(location != null)
+                    photoBuilder.setLocation(location.getLatitude(), location.getLongitude());
             }
             savePhoto();
         });
